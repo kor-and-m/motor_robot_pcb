@@ -1,0 +1,35 @@
+* TPS62162 — Averaged buck macromodel (FIXED 3.3V), KiCad-friendly, pins match symbol:
+* 1 PGND, 2 VIN, 3 EN, 4 AGND, 5 FB, 6 VOS, 7 SW, 8 PG, 9 PAD
+.subckt TPS62162_AVG_FIXED_KICAD PGND VIN EN AGND FB VOS SW PG PAD params: VOUTFIX=3.3 DMAX=0.95 SS=1m ROUT=0.05 IPG=1m UVLO=2.0 ENTH=1.0 VOSFLOOR=0.05
+
+* Сведение земель (мягко), референс к глобальной 0
+R_PGND PGND AGND 1u
+R_PAD  PAD  AGND 1u
+R_REF  AGND 0    1T
+
+* Логические разрешения
+Benok  N_ENOK AGND V={ u( V(EN,AGND) - ENTH ) }       ; EN >= ENTH
+Bvok   N_VOK  AGND V={ u( V(VIN,AGND) - UVLO ) }      ; VIN >= UVLO
+
+* Софт-старт (только при EN=1)
+BVREF  NREF   AGND V={ VOUTFIX * (1 - exp(-time/SS)) * V(N_ENOK,AGND) }
+
+* Duty-команда: D = (Vref/VIN) * en_ok * vin_ok, с клампом
+.func DENOM() { max( VOSFLOOR, V(VIN,AGND) ) } 
+.func DUTY()  { limit( ( V(NREF,AGND) / DENOM() ) * V(N_ENOK,AGND) * V(N_VOK,AGND), 0, DMAX) }
+
+* Усреднённый «коммутатор»: узел SW ≈ D * VIN (через небольшое ROUT)
+BSW    XSW  AGND  V={ V(VIN,AGND) * DUTY() }
+RSW    SW   XSW   {ROUT}
+Csw    SW   AGND  5p
+
+* PowerGood: «открытый сток» к земле; OK при |VOS-целевое| < 10% и EN=1
+.func GOOD() { u( 0.10 - abs( V(VOS,AGND) - V(NREF,AGND) ) / max(1e-6, V(NREF,AGND)) ) * V(N_ENOK,AGND) }
+BPG    PG   AGND  I={ IPG * (1 - GOOD()) }
+Cpg    PG   AGND  1p
+
+* Мини-утечка на VOS (даёт DC-путь и помогает .op)
+Rbleed_VOS VOS AGND 1G
+
+.ends TPS62162_AVG_FIXED_KICAD
+

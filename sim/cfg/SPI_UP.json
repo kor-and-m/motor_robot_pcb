@@ -1,0 +1,12 @@
+{
+    "tpd_MISO": {
+        "op": "<",
+        "value": 2e-7
+    },
+    "MISO_ESP_MAX": {
+        ">=": 2.0
+    },
+    "MISO_ESP_MIN": {
+        "<=": 0.8
+    }
+}

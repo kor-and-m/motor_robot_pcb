@@ -1,0 +1,50 @@
+* TLV70018 — поведенческая модель (5 пинов), стабильная для ngspice
+* Порядок пинов: IN  GND  EN  NC  OUT
+.subckt TLV70018_AVG_5P IN GND EN NC OUT
+* -------- Параметры --------
+.param VOUT=1.8      ; целевое напряжение
+.param VDO=0.2       ; дропаут
+.param ILIM=0.15     ; ограничение тока
+.param GM=1          ; "усиление" петли
+.param TSS=100u      ; софт-старт
+.param IQ=50u        ; ток покоя при EN=1
+.param RLOAD_MIN=1G  ; техн. утечка
+.param RDIS=50       ; разряд OUT при EN=0
+.param VTH=0.7       ; порог включения EN
+.param VW=0.05       ; "ширина" сглаживания порога EN (В)
+.param EPS=1e-3      ; сглаживание min()
+
+* --- плавная логика разрешения EN (0..1) ---
+* 0.5*(1+tanh((V-В_порог)/VW)) даёт плавный переход
+B_en nEN 0 V = { 0.5*(1 + tanh( (V(EN,0) - VTH)/VW )) }
+C_en nEN 0 1p
+
+* Софт-старт: 0→VOUT за TSS после включения
+BSS  SS   0 V = { V(nEN)*VOUT*min(time/TSS, 1) }
+
+* "мягкий" min(a,b): 0.5*(a+b - sqrt((a-b)^2+EPS^2))
+.func smin(a,b) { 0.5*(a+b - sqrt( (a-b)*(a-b) + EPS*EPS )) }
+
+* Целевая величина с учётом дропаута, EN и SS
+BTARG TARG 0 V = { V(nEN) * smin( smin( V(SS), VOUT ), V(IN)-VDO ) }
+
+* Ошибка регулирования
+BERR ERR  0 V = { V(TARG) - V(OUT) }
+
+* Пассовой элемент: ток "из IN в OUT".
+* Знак минус важен: отрицательный ток от OUT к IN эквивалентен положительному IN->OUT.
+BPASS OUT IN I = { -limit( GM*V(ERR), 0, ILIM ) }
+
+* Ток покоя
+BIQ   IN  0  I = { IQ*V(nEN) }
+
+* Разряд при EN=0
+BDIS OUT  0  I = { (1 - V(nEN)) * V(OUT)/RDIS }
+
+* Техн. утечка
+Rleak OUT 0 {RLOAD_MIN}
+
+* Микро-ёмкость на выходе для численной устойчивости
+Cout  OUT 0 1p
+.ends TLV70018_AVG_5P
+

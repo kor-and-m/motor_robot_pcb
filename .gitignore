@@ -1,2 +1,6 @@
 /hw/magnitrometr-backups 
 /hw/fp-info-cache
+/hw/_autosave*
+/hw/#auto_saved_files#
+/sim/out/
+/sim/logs/

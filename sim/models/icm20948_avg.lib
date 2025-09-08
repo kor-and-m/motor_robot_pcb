@@ -1,0 +1,54 @@
+* ICM-20948 — упрощённая power-модель (25 пинов: добавлен NC0 в конце)
+* Порядок пинов:
+*  1 NC1  2 NC2  3 NC3  4 NC4  5 NC5  6 NC6
+*  7 AUX_CL   8 VDDIO   9 SDO/AD0   10 REGOUT   11 FSYNC   12 INT1
+* 13 VDD     14 NC14   15 NC15     16 NC16     17 NC17
+* 18 GND_A   19 RESV   20 GND_B    21 AUX_DA   22 nCS     23 SCL     24 SDA
+*
+.subckt ICM20948_AVG NC1 NC2 NC3 NC4 NC5 NC6 AUX_CL VDDIO SDOAD0 REGOUT FSYNC INT1 VDD NC14 NC15 NC16 NC17 GND_A RESV GND_B AUX_DA nCS SCL SDA \
++ params: I_VDD=2m I_VDDIO=0.5m TSS=1m VUVLO=1.6 VIOUVLO=1.6 VREG=1.65 ROUTREG=2 IPULL_INT=0
+
+* Аккуратно сводим земли + референс на глобальный 0
+R_GA   GND_A AGND 1u
+R_GB   GND_B AGND 1u
+R_REF  AGND  0    1T
+
+* Разрешение по UVLO (оба питания в норме)
+Ben    N_EN  AGND  V={ u(V(VDD,AGND)-VUVLO) * u(V(VDDIO,AGND)-VIOUVLO) }
+
+* Потребление от шин (с мягким выходом на уровень)
+BI_Vdd    VDD    AGND  I = { I_VDD   * (1 - exp(-time/TSS)) * V(N_EN,AGND) }
+BI_Vddio  VDDIO  AGND  I = { I_VDDIO * (1 - exp(-time/TSS)) * V(N_EN,AGND) }
+
+* Внутренний LDO: REGOUT (ограничен VDD-0.1В, софт-старт)
+BREG   NREG  AGND  V = { min( VREG, max(0, V(VDD,AGND)-0.1) ) * (1 - exp(-time/TSS)) * V(N_EN,AGND) }
+RREG   REGOUT NREG {ROUTREG}
+Cstab  REGOUT AGND 1p
+
+* INT1: «открытый сток» к GND (по умолчанию Hi-Z — IPULL_INT=0)
+BINT   INT1  AGND  I = { IPULL_INT * V(N_EN,AGND) }
+Cint   INT1  AGND  0.5p
+
+* Небольшие утечки на цифровых пинах — для сходимости .op/.tran
+Rbleed1 AUX_CL  AGND 1G
+Rbleed2 SDOAD0  AGND 1G
+Rbleed3 FSYNC   AGND 1G
+Rbleed4 INT1    AGND 1G
+Rbleed5 RESV    AGND 1G
+Rbleed6 AUX_DA  AGND 1G
+Rbleed7 nCS     AGND 1G
+Rbleed8 SCL     AGND 1G
+Rbleed9 SDA     AGND 1G
+Rnc1    NC1     AGND 1G
+Rnc2    NC2     AGND 1G
+Rnc3    NC3     AGND 1G
+Rnc4    NC4     AGND 1G
+Rnc5    NC5     AGND 1G
+Rnc6    NC6     AGND 1G
+Rnc14   NC14    AGND 1G
+Rnc15   NC15    AGND 1G
+Rnc16   NC16    AGND 1G
+Rnc17   NC17    AGND 1G
+
+.ends ICM20948_AVG
+

@@ -2963,7 +2963,7 @@
 		(lib_id "Device:FerriteBead_Small")
 		(at 33.02 38.1 0)
 		(unit 1)
-		(exclude_from_sim no)
+		(exclude_from_sim yes)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
@@ -3100,7 +3100,7 @@
 		(lib_id "Device:FerriteBead_Small")
 		(at 43.18 81.28 0)
 		(unit 1)
-		(exclude_from_sim no)
+		(exclude_from_sim yes)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
@@ -3583,7 +3583,7 @@
 		(lib_id "Regulator_Switching:TPS62162DSG")
 		(at 83.82 33.02 0)
 		(unit 1)
-		(exclude_from_sim no)
+		(exclude_from_sim yes)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
@@ -3741,12 +3741,12 @@
 		(at 158.75 27.94 0)
 		(mirror y)
 		(unit 1)
-		(exclude_from_sim no)
+		(exclude_from_sim yes)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "aca6b694-7437-4737-bca9-82eb82e27553")
-		(property "Reference" "J2"
+		(property "Reference" "POWER_SOURCE1"
 			(at 157.48 27.9399 0)
 			(effects
 				(font
@@ -3800,7 +3800,7 @@
 		(instances
 			(project ""
 				(path "/891cdf0c-b4c2-4f65-9c53-c267913f529d/32dcc24e-8308-45ed-b18e-b6bb77f40255"
-					(reference "J2")
+					(reference "POWER_SOURCE1")
 					(unit 1)
 				)
 			)

@@ -1,0 +1,87 @@
+* DRV8833RTY — поведенческая (усреднённая) модель двух H-мостов
+* Порядок пинов соответствует скрину/символу KiCad (№1…17):
+* 1 AISEN, 2 AOUT2, 3 BOUT2, 4 BISEN, 5 BOUT1, 6 nFAULT, 7 BIN1, 8 BIN2,
+* 9 VCP, 10 VM, 11 GND1, 12 VINT, 13 AIN2, 14 AIN1, 15 nSLEEP, 16 AOUT1, 17 GND2
+.subckt DRV8833RTY_AVG AISEN AOUT2 BOUT2 BISEN BOUT1 nFAULT BIN1 BIN2 VCP VM GND1 VINT AIN2 AIN1 nSLEEP AOUT1 GND2 params: RON_HS=0.25 RON_LS=0.25 ROFF=1e6 VIH=1.2 VSENSE=0.2 IQ_ON=2m IQ_SLEEP=5u COUT=10p
+
+* ----- внутренние узлы/земля -----
+R_G1 GNDi GND1 1u
+R_G2 GNDi GND2 1u
+
+* ----- вспомогательные функции -----
+.func stepv(v,th) { u(v - th) }    ; пороговая «1/0»
+.func c01(x) { limit(x,0,1) }
+
+* ----- разрешение (nSLEEP: высокий = включено) -----
+Ben  N_EN 0 V={ stepv(V(nSLEEP),VIH) }
+
+* ========= Канал A (AOUT1/AOUT2) =========
+* Логика направлений: входы AIN1/2
+BA_fwd  NA_FWD 0 V={ V(N_EN)*stepv(V(AIN1),VIH)*(1-stepv(V(AIN2),VIH)) }
+BA_rev  NA_REV 0 V={ V(N_EN)*stepv(V(AIN2),VIH)*(1-stepv(V(AIN1),VIH)) }
+BA_brk  NA_BRK 0 V={ V(N_EN)*(1-stepv(V(AIN1),VIH))*(1-stepv(V(AIN2),VIH)) }
+
+* Лимит по току по шунту AISEN (опционально)
+BA_trip NA_TRIP 0 V={ stepv(V(AISEN),VSENSE) }
+
+* Состояния ключей (0..1)
+* Forward: HS@AOUT1 + LS@AOUT2; Reverse: HS@AOUT2 + LS@AOUT1
+BAs_hs1 NAsHS1 0 V={ c01(V(NA_FWD)*(1-V(NA_TRIP))) }
+BAs_ls2 NAsLS2 0 V={ c01(V(NA_FWD)*(1-V(NA_TRIP)) + V(NA_BRK)) }
+BAs_hs2 NAsHS2 0 V={ c01(V(NA_REV)*(1-V(NA_TRIP))) }
+BAs_ls1 NAsLS1 0 V={ c01(V(NA_REV)*(1-V(NA_TRIP)) + V(NA_BRK)) }
+
+* Ключи как управл. резисторы (AOUT1 — пин 16, AOUT2 — пин 2)
+Ra_hs1 VM     AOUT1  { RON_HS*V(NAsHS1) + ROFF*(1-V(NAsHS1)) }
+Ra_ls1 AOUT1  GNDi   { RON_LS*V(NAsLS1) + ROFF*(1-V(NAsLS1)) }
+Ra_hs2 VM     AOUT2  { RON_HS*V(NAsHS2) + ROFF*(1-V(NAsHS2)) }
+Ra_ls2 AOUT2  GNDi   { RON_LS*V(NAsLS2) + ROFF*(1-V(NAsLS2)) }
+
+* Диоды и небольшая С на выходах
+.model DBD_A D(IS=1n RS=0.2 N=1.8 TT=50n)
+DA1p AOUT1 VM   DBD_A
+DA1n GNDi  AOUT1 DBD_A
+DA2p AOUT2 VM   DBD_A
+DA2n GNDi  AOUT2 DBD_A
+CA1  AOUT1 GNDi {COUT}
+CA2  AOUT2 GNDi {COUT}
+
+* ========= Канал B (BOUT1/BOUT2) =========
+BB_fwd  NB_FWD 0 V={ V(N_EN)*stepv(V(BIN1),VIH)*(1-stepv(V(BIN2),VIH)) }
+BB_rev  NB_REV 0 V={ V(N_EN)*stepv(V(BIN2),VIH)*(1-stepv(V(BIN1),VIH)) }
+BB_brk  NB_BRK 0 V={ V(N_EN)*(1-stepv(V(BIN1),VIH))*(1-stepv(V(BIN2),VIH)) }
+BB_trip NB_TRIP 0 V={ stepv(V(BISEN),VSENSE) }
+
+BBs_hs1 NBsHS1 0 V={ c01(V(NB_FWD)*(1-V(NB_TRIP))) }
+BBs_ls2 NBsLS2 0 V={ c01(V(NB_FWD)*(1-V(NB_TRIP)) + V(NB_BRK)) }
+BBs_hs2 NBsHS2 0 V={ c01(V(NB_REV)*(1-V(NB_TRIP))) }
+BBs_ls1 NBsLS1 0 V={ c01(V(NB_REV)*(1-V(NB_TRIP)) + V(NB_BRK)) }
+
+Rb_hs1 VM     BOUT1  { RON_HS*V(NBsHS1) + ROFF*(1-V(NBsHS1)) }
+Rb_ls1 BOUT1  GNDi   { RON_LS*V(NBsLS1) + ROFF*(1-V(NBsLS1)) }
+Rb_hs2 VM     BOUT2  { RON_HS*V(NBsHS2) + ROFF*(1-V(NBsHS2)) }
+Rb_ls2 BOUT2  GNDi   { RON_LS*V(NBsLS2) + ROFF*(1-V(NBsLS2)) }
+
+.model DBD_B D(IS=1n RS=0.2 N=1.8 TT=50n)
+DB1p BOUT1 VM   DBD_B
+DB1n GNDi  BOUT1 DBD_B
+DB2p BOUT2 VM   DBD_B
+DB2n GNDi  BOUT2 DBD_B
+CB1  BOUT1 GNDi {COUT}
+CB2  BOUT2 GNDi {COUT}
+
+* ----- потребление от VM -----
+BIQ VM 0 I={ IQ_SLEEP + (IQ_ON - IQ_SLEEP)*V(N_EN) }
+
+* ----- nFAULT: открытый сток (тянем при трипе любого канала) -----
+BFLT nFAULT 0 I={ 1m*max(stepv(V(AISEN),VSENSE), stepv(V(BISEN),VSENSE)) }
+Cflt nFAULT 0 1p
+
+* ----- «антиплавающие» утечки -----
+Rbleed_vcp  VCP   0   1G
+Rbleed_vint VINT  0   1G
+Rbleed_isa  AISEN 0   1G
+Rbleed_isb  BISEN 0   1G
+
+.ends DRV8833RTY_AVG
+

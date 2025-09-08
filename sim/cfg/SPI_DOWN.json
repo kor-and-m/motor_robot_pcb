@@ -1,0 +1,14 @@
+{
+    "SCLK_IMU_MAX": {
+        ">=": 1.2
+    },
+    "SCLK_IMU_MIN": {
+        "<=": 0.4
+    },
+    "MOSI_IMU_MAX": {
+        ">=": 1.2
+    },
+    "MOSI_IMU_MIN": {
+        "<=": 0.4
+    }
+}

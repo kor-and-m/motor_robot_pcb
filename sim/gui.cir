@@ -1,0 +1,138 @@
+.title KiCad schematic
+.include "/Users/msk-hq-nb-1221/pcb/multivibrator/magnitrometr/sim/models/drv8833rty_avg.lib"
+.include "/Users/msk-hq-nb-1221/pcb/multivibrator/magnitrometr/sim/models/fbead_600.lib"
+.include "/Users/msk-hq-nb-1221/pcb/multivibrator/magnitrometr/sim/models/icm20948_avg.lib"
+.include "/Users/msk-hq-nb-1221/pcb/multivibrator/magnitrometr/sim/models/sn74aup1t34_avg.lib"
+.include "/Users/msk-hq-nb-1221/pcb/multivibrator/magnitrometr/sim/models/tlv70018_avg5.lib"
+.include "/Users/msk-hq-nb-1221/pcb/multivibrator/magnitrometr/sim/models/tps62162_avg.lib"
+.save all
+.probe alli
+.probe p(L1)
+.probe p(R_PG1)
+.probe p(X7V4_TO_3V3)
+.probe p(C_IN_1V8)
+.probe p(X3V3_TO_1V8)
+.probe p(C_OUT_1V1)
+.probe p(C_BUCK_OUT1)
+.probe p(C_VM_dec1)
+.probe p(C_BUCK_OUT2)
+.probe p(C_BUCK_IN2)
+.probe p(C_BUCK_IN1)
+.probe p(V1)
+.probe p(C_VM_bulk1)
+.probe p(C_3V3_bulk1)
+.probe p(XFB1)
+.probe p(C_3V3_dec2)
+.probe p(XFB2)
+.probe p(C_3V3_dec1)
+.probe p(C2)
+.probe p(C1)
+.probe p(XIMU1)
+.probe p(C3)
+.probe p(R1)
+.probe p(R3)
+.probe p(R2)
+.probe p(R4)
+.probe p(C_VCCB_U6)
+.probe p(XU6)
+.probe p(C_VCCA_U5)
+.probe p(C_VCCA_U6)
+.probe p(C_VCCB_U5)
+.probe p(XU5)
+.probe p(R_MOSI_BOT1)
+.probe p(R_CS_TOP1)
+.probe p(R_MOSI_TOP1)
+.probe p(R_SCLK_TOP1)
+.probe p(R_SCLK_BOT1)
+.probe p(R_CS_BOT1)
+.probe p(R_CS_PU1)
+.probe p(C_VCP1)
+.probe p(C_VINT1)
+.probe p(R_SLEEP_PU1)
+.probe p(XMOTORS_DRIVER1)
+.probe p(C_VM_dec2)
+.probe p(R_FAULT_PU1)
+.probe p(C_VM_bulk2)
+.probe p(R_ENC2_A_SER1)
+.probe p(R_ENC2_B_SER1)
+.probe p(C_VENC2)
+.probe p(C_ENC2_FILT_B1)
+.probe p(C_ENC2_FILT_A1)
+.probe p(C_ENC1_FILT_B1)
+.probe p(C_ENC1_FILT_A1)
+.probe p(R_ENC1_A_SER1)
+.probe p(C_VENC1)
+.probe p(R_ENC1_B_SER1)
+.save V(VLOGIC) V(VIO18) V(/imu_icm20948/imu_cs) I(V1) @L1[i] @R1[i] @C_3V3_bulk1[i]
+
+* 1) Опции сходимости/стабильности и тишина в логах
+.option noacct rshunt=1e12 gmin=1e-12 method=gear maxstep=100n reltol=1e-3 abstol=1e-9 vntol=1e-6 itl1=500 itl4=200
+
+* 2) Начальные условия (мягкий старт источников/линий логики)
+.ic V(VLOGIC)=0 V(VIO18)=0 V(/imu_icm20948/imu_cs)=0
+
+* 3) Анализ
+.tran 1u 10.0001m 0 2u
+*.op  ; (можно оставить закомментированным; при необходимости включишь)
+
+* 4) Примеры автомерок (по желанию)
+.meas tran vlogic_final FIND V(VLOGIC) AT=10m
+.meas tran vio18_final  FIND V(VIO18)  AT=10m
+.op
+L1 VLOGIC Net-_7V4_TO_3V3-SW_ 2.2u
+R_PG1 VLOGIC Net-_7V4_TO_3V3-PG_ 100k
+X7V4_TO_3V3 GND VMOTOR VMOTOR GND GND VLOGIC Net-_7V4_TO_3V3-SW_ Net-_7V4_TO_3V3-PG_ GND TPS62162_AVG_FIXED_KICAD
+C_IN_1V8 VLOGIC_MPU GND 1u
+X3V3_TO_1V8 VLOGIC_MPU GND VLOGIC_MPU unconnected-_3V3_TO_1V8-NC-Pad4_ VIO18 TLV70018_AVG_5P
+C_OUT_1V1 VIO18 GND 1u
+C_BUCK_OUT1 GND VLOGIC 22u
+C_VM_dec1 VMOTOR GND 0.1u
+C_BUCK_OUT2 GND VLOGIC 22u
+C_BUCK_IN2 GND VMOTOR 10u
+C_BUCK_IN1 GND VMOTOR 10u
+V1 VMOTOR GND DC 7.4 
+C_VM_bulk1 VMOTOR GND 47u
+C_3V3_bulk1 VLOGIC GND 10u
+XFB1 VLOGIC VLOGIC_MPU FBEAD
+C_3V3_dec2 GND VLOGIC_RF 0.1u
+XFB2 VLOGIC VLOGIC_RF FBEAD
+C_3V3_dec1 GND VLOGIC_MPU 0.1u
+C2 VLOGIC_MPU GND 0.1u
+C1 Net-_IMU1-REGOUT_ GND 0.1u
+XIMU1 unconnected-_IMU1-NC-Pad1_ unconnected-_IMU1-NC-Pad2_ unconnected-_IMU1-NC-Pad3_ unconnected-_IMU1-NC-Pad4_ unconnected-_IMU1-NC-Pad5_ unconnected-_IMU1-NC-Pad6_ unconnected-_IMU1-AUX_CL-Pad7_ VIO18 /IMU_ICM20948/SPI_MISO Net-_IMU1-REGOUT_ GND /IMU_ICM20948/IMU_INT VLOGIC_MPU unconnected-_IMU1-NC-Pad14_ unconnected-_IMU1-NC-Pad15_ unconnected-_IMU1-NC-Pad16_ unconnected-_IMU1-NC-Pad17_ GND unconnected-_IMU1-RESV-Pad19_ GND unconnected-_IMU1-AUX_DA-Pad21_ /IMU_ICM20948/IMU_CS /IMU_ICM20948/SPI_SCLK /IMU_ICM20948/SPI_MOSI NC-IMU1-0 ICM20948_AVG
+C3 GND VIO18 0.1u
+R1 /IMU_ICM20948/IMU_CS VLOGIC_MPU 1k
+R3 Net-_U4-IO23_ /LevelShift_SPI5/SCLK_3V3 33
+R2 Net-_U4-IO22_ /LevelShift_SPI5/CS_3V3 33
+R4 Net-_U4-IO25_ /LevelShift_SPI5/MISO_3V3 33
+C_VCCB_U6 VLOGIC_RF GND 0.1u
+XU6 VIO18 /IMU_ICM20948/IMU_INT GND /LevelShift_SPI5/INT_3V3 VLOGIC_RF SN74AUP1T34_DCK
+C_VCCA_U5 GND VIO18 0.1u
+C_VCCA_U6 GND VIO18 0.1u
+C_VCCB_U5 VLOGIC_RF GND 0.1u
+XU5 VIO18 /IMU_ICM20948/SPI_MISO GND /LevelShift_SPI5/MISO_3V3 VLOGIC_RF SN74AUP1T34_DCK
+R_MOSI_BOT1 /LevelShift_SPI5/MOSI_3V3 GND 1k
+R_CS_TOP1 /LevelShift_SPI5/CS_3V3 /IMU_ICM20948/SPI_SCLK 820
+R_MOSI_TOP1 /LevelShift_SPI5/MOSI_3V3 /IMU_ICM20948/SPI_MOSI 820
+R_SCLK_TOP1 /LevelShift_SPI5/SCLK_3V3 /IMU_ICM20948/IMU_CS 820
+R_SCLK_BOT1 /LevelShift_SPI5/SCLK_3V3 GND 1k
+R_CS_BOT1 /LevelShift_SPI5/CS_3V3 GND 1k
+R_CS_PU1 /IMU_ICM20948/SPI_SCLK VIO18 10k
+C_VCP1 Net-_MOTORS_DRIVER1-VCP_ VMOTOR 0.01u
+C_VINT1 GND Net-_MOTORS_DRIVER1-VINT_ 0.1u
+R_SLEEP_PU1 VLOGIC_RF /DRV8833RTY/MDRV_nSLEEP 10k
+XMOTORS_DRIVER1 GND Net-_J_M1-Pin_2_ Net-_J_M2-Pin_2_ GND Net-_J_M2-Pin_1_ /DRV8833RTY/MDRV_nFAULT /DRV8833RTY/M2_IN1 /DRV8833RTY/M2_IN2 Net-_MOTORS_DRIVER1-VCP_ VMOTOR GND Net-_MOTORS_DRIVER1-VINT_ /DRV8833RTY/M1_IN2 /DRV8833RTY/M1_IN1 /DRV8833RTY/MDRV_nSLEEP Net-_J_M1-Pin_1_ GND DRV8833RTY_AVG
+C_VM_dec2 VMOTOR GND 0.1u
+R_FAULT_PU1 /DRV8833RTY/MDRV_nFAULT VLOGIC_RF 10k
+C_VM_bulk2 VMOTOR GND 47u
+R_ENC2_A_SER1 Net-_D_ENC2_ESDx1-I/O2-Pad4_ /ENCODERS/ENC2_B 100
+R_ENC2_B_SER1 Net-_D_ENC2_ESDx1-I/O1-Pad6_ /ENCODERS/ENC2_A 100
+C_VENC2 GND VLOGIC_RF 0.1u
+C_ENC2_FILT_B1 GND /ENCODERS/ENC2_B 1n
+C_ENC2_FILT_A1 GND /ENCODERS/ENC2_A 1n
+C_ENC1_FILT_B1 GND /ENCODERS/ENC1_B 1n
+C_ENC1_FILT_A1 GND /ENCODERS/ENC1_A 1n
+R_ENC1_A_SER1 Net-_D_ENC1_ESDx1-I/O2-Pad4_ /ENCODERS/ENC1_B 100
+C_VENC1 GND VLOGIC_RF 0.1u
+R_ENC1_B_SER1 Net-_D_ENC1_ESDx1-I/O1-Pad6_ /ENCODERS/ENC1_A 100
+.end

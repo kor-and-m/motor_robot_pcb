@@ -1,0 +1,41 @@
+* sn74aup1t34_dck.lib
+* SN74AUP1T34DCK — одноканальный неинвертирующий level-shifter
+* Пины: 1=VCCA, 2=A, 3=GND, 4=B, 5=VCCB
+.subckt SN74AUP1T34_DCK  VCCA  A  GND  B  VCCB
++ params: RDRV=40  CIN=2p  COUT=4p  ICC=1u
++         VTH_FRAC=0.55  K=0.02  VCCA_MIN=0.8  VCCB_MIN=1.2  HIZ_GAIN=1e-6
+
+* вспомогательные «мягкие» функции
+.func step01(x) { 0.5*(tanh(x)+1) }
+.func vmin(x,y) { (x<y)?x:y }
+
+* разрешение драйвера: включается, когда обе шины питания «живы»
+Ben   nen 0 V = { step01( (vmin(V(VCCA,GND), V(VCCB,GND)) - VCCA_MIN)/0.1 ) }
+
+* передаточная характеристика входа (порог ~0.55*VCCA, сглаживание ~2% VCCA)
+Bf    nflt 0 V = { step01( ( V(A,GND) - VTH_FRAC*V(VCCA,GND) )
++                     /(K*max(V(VCCA,GND),0.5)) ) }
+
+* целевое выходное напряжение
+Btgt  ntgt 0 V = { V(VCCB,GND) * V(nflt) }
+
+* выходной каскад: конечная проводимость и Hi-Z при выключении
+Rdrv  B ntgt R = { RDRV/(V(nen)+HIZ_GAIN) }
+
+* паразитные ёмкости (типовые)
+Cin   A   GND {CIN}
+Cout  B   GND {COUT}
+
+* мягкие ограничители к шинам (ESD/клэмпы)
+Dabv  A VCCA dcl
+Dabg  0 A    dcl
+Dbbv  B VCCB dcl
+Dbbg  0 B    dcl
+.model dcl D(Is=1e-15 N=1 Rs=0.5 Cjo=100f)
+
+* статический потребляемый ток (тип.) — отключается в Hi-Z
+BIcca VCCA GND I = { ICC * V(nen) }
+BIccb VCCB GND I = { ICC * V(nen) }
+
+.ends SN74AUP1T34_DCK
+
