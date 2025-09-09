@@ -1542,7 +1542,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ab1ff546-086b-43bc-a9a0-3c91e26f3e5a")
-		(property "Reference" "U1"
+		(property "Reference" "IMU1"
 			(at 88.5033 72.39 0)
 			(effects
 				(font
@@ -1579,6 +1579,42 @@
 			)
 		)
 		(property "Description" "InvenSense 9-Axis Motion Sensor, Accelerometer, Gyroscope, Compass, I2C/SPI, QFN-24"
+			(at 86.36 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Library" "/Users/msk-hq-nb-1221/pcb/multivibrator/magnitrometr/sim/models/icm20948_avg.lib"
+			(at 86.36 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Name" "ICM20948_AVG"
+			(at 86.36 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "SUBCKT"
+			(at 86.36 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=NC1 2=NC2 3=NC3 4=NC4 5=NC5 6=NC6 7=AUX_CL 8=VDDIO 9=SDOAD0 10=REGOUT 11=FSYNC 12=INT1 13=VDD 14=NC14 15=NC15 16=NC16 17=NC17 18=GND_A 19=RESV 20=GND_B 21=AUX_DA 22=nCS 23=SCL 24=SDA"
 			(at 86.36 54.61 0)
 			(effects
 				(font
@@ -1662,7 +1698,7 @@
 		(instances
 			(project ""
 				(path "/891cdf0c-b4c2-4f65-9c53-c267913f529d/ce5d4f46-d322-4fd2-88f9-a110a0579c5d"
-					(reference "U1")
+					(reference "IMU1")
 					(unit 1)
 				)
 			)

@@ -51,7 +51,13 @@
           "min_clearance": 0.5
         }
       },
-      "diff_pair_dimensions": [],
+      "diff_pair_dimensions": [
+        {
+          "gap": 0.0,
+          "via_gap": 0.0,
+          "width": 0.0
+        }
+      ],
       "drc_exclusions": [],
       "meta": {
         "version": 2
@@ -129,7 +135,7 @@
         "min_silk_clearance": 0.0,
         "min_text_height": 0.8,
         "min_text_thickness": 0.08,
-        "min_through_hole_diameter": 0.3,
+        "min_through_hole_diameter": 0.2,
         "min_track_width": 0.0,
         "min_via_annular_width": 0.1,
         "min_via_diameter": 0.5,
@@ -180,7 +186,9 @@
           "td_width_to_size_filter_ratio": 0.9
         }
       ],
-      "track_widths": [],
+      "track_widths": [
+        0.0
+      ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
           "corner_radius_percentage": 80,
@@ -207,7 +215,12 @@
           "spacing": 0.6
         }
       },
-      "via_dimensions": [],
+      "via_dimensions": [
+        {
+          "diameter": 0.0,
+          "drill": 0.0
+        }
+      ],
       "zones_allow_external_fillets": false
     },
     "ipc2581": {
@@ -486,8 +499,8 @@
       "gencad": "",
       "idf": "",
       "netlist": "magnitrometr.net",
-      "plot": "",
-      "pos_files": "",
+      "plot": "../../../../grb/mobile_robot/",
+      "pos_files": "../../../../grb/mobile_robot/",
       "specctra_dsn": "",
       "step": "",
       "svg": "",
@@ -644,6 +657,14 @@
     [
       "49b0117c-a477-4b00-9c1e-6fa353293008",
       "ENCODERS"
+    ],
+    [
+      "08d3f0e5-de1a-4cf8-8caa-5f92530f636e",
+      "Mounting"
+    ],
+    [
+      "fc7a60c5-662f-4f5b-ba06-986f82ad4bdf",
+      "Programming"
     ]
   ],
   "text_variables": {}

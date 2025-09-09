@@ -5,6 +5,113 @@
 	(uuid "9733fa18-769c-4e0a-af36-972ff3834810")
 	(paper "A4")
 	(lib_symbols
+		(symbol "Connector:TestPoint"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.762)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Connector_Generic:Conn_01x02"
 			(pin_names
 				(offset 1.016)
@@ -915,16 +1022,40 @@
 		(uuid "481b1147-6569-48fb-af41-97910e88162f")
 	)
 	(junction
+		(at 90.17 64.77)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "70007fcc-27b0-48d3-91eb-6aac2f721207")
+	)
+	(junction
 		(at 88.9 57.15)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "852089a6-f84f-4e9e-af7f-ff26d91c77cf")
 	)
 	(junction
+		(at 86.36 67.31)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bcb4912f-39ad-44ac-86a5-0db8596c339b")
+	)
+	(junction
+		(at 88.9 69.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bea79e2f-dacc-4bc2-9c34-8071e8ab8ab4")
+	)
+	(junction
 		(at 52.07 46.99)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c0ec74ae-61d1-4ee1-a576-12cd6ee71e58")
+	)
+	(junction
+		(at 87.63 62.23)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f74e3f9b-7463-435f-890e-a543cac28063")
 	)
 	(junction
 		(at 107.95 38.1)
@@ -944,7 +1075,7 @@
 	)
 	(wire
 		(pts
-			(xy 85.09 62.23) (xy 90.17 62.23)
+			(xy 85.09 62.23) (xy 87.63 62.23)
 		)
 		(stroke
 			(width 0)
@@ -961,6 +1092,16 @@
 			(type default)
 		)
 		(uuid "19188f94-ee55-4787-8cb4-4648b3f42724")
+	)
+	(wire
+		(pts
+			(xy 88.9 69.85) (xy 90.17 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1afae860-9414-459d-a859-5c2a4b0382e9")
 	)
 	(wire
 		(pts
@@ -1114,7 +1255,7 @@
 	)
 	(wire
 		(pts
-			(xy 85.09 69.85) (xy 90.17 69.85)
+			(xy 85.09 69.85) (xy 88.9 69.85)
 		)
 		(stroke
 			(width 0)
@@ -1161,6 +1302,16 @@
 			(type default)
 		)
 		(uuid "b8372716-ce23-44d4-9f01-39261306d62d")
+	)
+	(wire
+		(pts
+			(xy 86.36 67.31) (xy 90.17 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c101b521-73da-46b4-b557-a5c57b72b6e0")
 	)
 	(wire
 		(pts
@@ -1234,13 +1385,23 @@
 	)
 	(wire
 		(pts
-			(xy 85.09 67.31) (xy 90.17 67.31)
+			(xy 85.09 67.31) (xy 86.36 67.31)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "e5a8bf77-7918-400b-b8ff-36bc46020c38")
+	)
+	(wire
+		(pts
+			(xy 87.63 62.23) (xy 90.17 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e98da17f-ed1b-4649-b083-bfb23024409d")
 	)
 	(wire
 		(pts
@@ -1505,6 +1666,73 @@
 		(uuid "c60fb5cb-bab0-4851-9e27-a3830cfbcc88")
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 87.63 62.23 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0387a40f-7770-46d8-8bc2-d27eb89a6fbc")
+		(property "Reference" "AOUT1_POINT1"
+			(at 90.17 57.6579 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "AOUT1"
+			(at 90.17 60.1979 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 92.71 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 92.71 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 87.63 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d4bfb1c5-0864-4f1b-8552-b02a8630dfc8")
+		)
+		(instances
+			(project "magnitrometr"
+				(path "/891cdf0c-b4c2-4f65-9c53-c267913f529d/307903b1-5c4f-40ae-a94c-a51eab6addcb"
+					(reference "AOUT1_POINT1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 40.64 52.07 270)
 		(mirror x)
@@ -1578,7 +1806,7 @@
 		(lib_id "Connector_Generic:Conn_01x02")
 		(at 95.25 62.23 0)
 		(unit 1)
-		(exclude_from_sim no)
+		(exclude_from_sim yes)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
@@ -1712,6 +1940,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 86.36 67.31 180)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3b41259e-9b77-4f93-b643-10ac424617be")
+		(property "Reference" "BOUT1_POINT1"
+			(at 88.9 69.3419 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "BOUT1"
+			(at 88.9 71.8819 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 81.28 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 81.28 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 86.36 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d460fd9c-602f-498b-a573-cef0551184e6")
+		)
+		(instances
+			(project "magnitrometr"
+				(path "/891cdf0c-b4c2-4f65-9c53-c267913f529d/307903b1-5c4f-40ae-a94c-a51eab6addcb"
+					(reference "BOUT1_POINT1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "MyLib:DRV8833RTY")
 		(at 69.85 59.69 0)
 		(unit 1)
@@ -1721,7 +2016,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3f3b1310-46d2-41d8-a63d-92089cf2e7cb")
-		(property "Reference" "U7"
+		(property "Reference" "MOTORS_DRIVER1"
 			(at 71.9933 74.93 0)
 			(effects
 				(font
@@ -1760,6 +2055,42 @@
 			)
 		)
 		(property "Description" "Dual H-Bridge Motor Driver, WQFN-16"
+			(at 69.85 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Library" "/Users/msk-hq-nb-1221/pcb/multivibrator/magnitrometr/sim/models/drv8833rty_avg.lib"
+			(at 69.85 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Name" "DRV8833RTY_AVG"
+			(at 69.85 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "SUBCKT"
+			(at 69.85 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=AISEN 2=AOUT2 3=BOUT2 4=BISEN 5=BOUT1 6=nFAULT 7=BIN1 8=BIN2 9=VCP 10=VM 11=GND1 12=VINT 13=AIN2 14=AIN1 15=nSLEEP 16=AOUT1 17=GND2"
 			(at 69.85 59.69 0)
 			(effects
 				(font
@@ -1822,7 +2153,7 @@
 		(instances
 			(project ""
 				(path "/891cdf0c-b4c2-4f65-9c53-c267913f529d/307903b1-5c4f-40ae-a94c-a51eab6addcb"
-					(reference "U7")
+					(reference "MOTORS_DRIVER1")
 					(unit 1)
 				)
 			)
@@ -1902,7 +2233,7 @@
 		(lib_id "Connector_Generic:Conn_01x02")
 		(at 95.25 67.31 0)
 		(unit 1)
-		(exclude_from_sim no)
+		(exclude_from_sim yes)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
@@ -2174,6 +2505,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 88.9 69.85 180)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c07d595e-1b34-4acd-ae5b-fda2048fb2e8")
+		(property "Reference" "BOUT2_POINT1"
+			(at 91.44 71.8819 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "BOUT2"
+			(at 91.44 74.4219 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 83.82 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 83.82 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 88.9 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8f81df7b-7c9a-4571-b671-7ea1b8020bb5")
+		)
+		(instances
+			(project "magnitrometr"
+				(path "/891cdf0c-b4c2-4f65-9c53-c267913f529d/307903b1-5c4f-40ae-a94c-a51eab6addcb"
+					(reference "BOUT2_POINT1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 52.07 57.15 270)
 		(unit 1)
@@ -2305,6 +2703,73 @@
 			(project ""
 				(path "/891cdf0c-b4c2-4f65-9c53-c267913f529d/307903b1-5c4f-40ae-a94c-a51eab6addcb"
 					(reference "C_VINT1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 90.17 64.77 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e848f7db-4e70-420b-ab13-b5f53a4d04db")
+		(property "Reference" "AOUT2_POINT1"
+			(at 92.71 60.1979 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "AOUT2"
+			(at 92.71 62.7379 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 95.25 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 95.25 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 90.17 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c6ac3c6b-dc06-4d9a-881a-1aee700e6c5f")
+		)
+		(instances
+			(project "magnitrometr"
+				(path "/891cdf0c-b4c2-4f65-9c53-c267913f529d/307903b1-5c4f-40ae-a94c-a51eab6addcb"
+					(reference "AOUT2_POINT1")
 					(unit 1)
 				)
 			)

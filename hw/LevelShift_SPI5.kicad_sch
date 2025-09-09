@@ -1710,6 +1710,42 @@
 				(hide yes)
 			)
 		)
+		(property "Sim.Library" "/Users/msk-hq-nb-1221/pcb/multivibrator/magnitrometr/sim/models/sn74aup1t34_avg.lib"
+			(at 115.57 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Name" "SN74AUP1T34_DCK"
+			(at 115.57 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "SUBCKT"
+			(at 115.57 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=VCCA 2=A 3=GND 4=B 5=VCCB"
+			(at 115.57 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9ecc2bd5-205c-4395-845d-271df3d8f7b9")
 		)
@@ -1845,6 +1881,42 @@
 			)
 		)
 		(property "Description" "1-Bit Unidirectional Voltage-Level Translator, SC-70"
+			(at 105.41 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Library" "/Users/msk-hq-nb-1221/pcb/multivibrator/magnitrometr/sim/models/sn74aup1t34_avg.lib"
+			(at 105.41 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Name" "SN74AUP1T34_DCK"
+			(at 105.41 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "SUBCKT"
+			(at 105.41 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=VCCA 2=A 3=GND 4=B 5=VCCB"
 			(at 105.41 55.88 0)
 			(effects
 				(font
